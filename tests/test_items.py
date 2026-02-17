@@ -18,6 +18,20 @@ def test_get_item_not_found(client):
     response = client.get("/items/9999")
     assert response.status_code == 404
 
+def test_update_item(client):
+    # First, create an item to update
+    response = client.post("/items/", json={"name": "Phone", "description": "Smartphone", "price": 800.00, "available": True})
+    assert response.status_code == 201
+    item_id = response.json()["id"]
+
+    # Now, update the item
+    response = client.put(f"/items/{item_id}", json={"name": "Phone", "description": "Updated Smartphone", "price": 750.00, "available": False})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["description"] == "Updated Smartphone"
+    assert data["price"] == 750.00
+    assert data["available"] == False
+
 def test_pagination(client):
     # Create multiple items
     for i in range(15):

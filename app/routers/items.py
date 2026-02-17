@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 
 from ..database import SessionLocal
@@ -17,8 +17,8 @@ def get_db():
         db.close()
 
 @router.get("/", response_model=list[schemas.ItemResponse])
-def list_items(db: Session = Depends(get_db)):
-    return crud.get_items(db)
+def list_items(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1, le=100), db: Session = Depends(get_db)):
+    return crud.get_items(db, skip=skip, limit=limit)
 
 @router.get("/{item_id}", response_model=schemas.ItemResponse)
 def get_item(item_id: int, db: Session = Depends(get_db)):

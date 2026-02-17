@@ -3,6 +3,8 @@ FROM python:3.10-slim
 # Evita buffers y archivos .pyc
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV DATABASE_URL=sqlite:////app/data/items.db
+
 
 WORKDIR /app
 

@@ -41,3 +41,14 @@ def test_pagination(client):
     assert response.status_code == 200
     data = response.json()
     assert len(data) == 5
+
+def test_delete_item(client):
+    response = client.post("/items/", json={"name": "Tablet", "description": "Android Tablet", "price": 300.00, "available": True})
+    assert response.status_code == 201
+    item_id = response.json()["id"]
+
+    response = client.delete(f"/items/{item_id}")
+    assert response.status_code == 200
+
+    response = client.get(f"/items/{item_id}")
+    assert response.status_code == 404

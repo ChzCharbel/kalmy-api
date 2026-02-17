@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Body
 from sqlalchemy.orm import Session
 
 from ..database import SessionLocal
@@ -32,7 +32,7 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
     return crud.create_item(db, item)
 
 @router.put("/{item_id}", response_model=schemas.ItemResponse)
-def update_item(item_id: int, item: schemas.ItemUpdate, db: Session = Depends(get_db)):
+def update_item(item_id: int, item: schemas.ItemUpdate = Body(...), db: Session = Depends(get_db)):
     updated_item = crud.update_item(db, item_id, item)
     if not updated_item:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")

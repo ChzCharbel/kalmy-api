@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, typing
 from pydantic import ConfigDict
+from typing import Optional
 
 class Item(BaseModel):
     name: str = Field(..., min_length=1)
@@ -11,7 +12,10 @@ class ItemCreate(Item):
     pass
 
 class ItemUpdate(BaseModel):
-    pass
+    name: Optional[str] = None
+    description: Optional[str] = None
+    price: Optional[float] = None
+    available: Optional[bool] = None
 
 class ItemResponse(Item):
     id: int

@@ -19,7 +19,8 @@ def update_item(db: Session, item_id: int, item: schemas.ItemUpdate):
     if not db_item:
         return None
     
-    for key, value in item.model_dump().items():
+    update_data = item.model_dump(exclude_unset=True)
+    for key, value in update_data.items():
         setattr(db_item, key, value)
 
     db.commit()

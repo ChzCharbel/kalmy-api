@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from pydantic import ConfigDict
 
 class Item(BaseModel):
     name: str = Field(..., min_length=1)
@@ -15,5 +16,4 @@ class ItemUpdate(BaseModel):
 class ItemResponse(Item):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

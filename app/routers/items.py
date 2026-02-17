@@ -39,7 +39,7 @@ def list_items(
     description="Devuelve un item específico por su ID."
 )
 def get_item(
-    item_id: int = Query(..., description="ID del item a obtener"),
+    item_id: int,
     db: Session = Depends(get_db)
 ):
     item = crud.get_item(db, item_id)
@@ -88,7 +88,7 @@ def create_item(
     description="Actualiza un item existente por su ID."
 )
 def update_item(
-    item_id: int = Query(..., description="ID del item a actualizar"),
+    item_id: int,
     item: schemas.ItemUpdate = Body(...),
     db: Session = Depends(get_db)
 ):
@@ -108,7 +108,7 @@ def update_item(
     description="Elimina un item por su ID."
 )
 def delete_item(
-    item_id: int = Query(..., description="ID del item a eliminar"),
+    item_id: int,
     db: Session = Depends(get_db)
 ):
     deleted_item = crud.delete_item(db, item_id)

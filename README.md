@@ -6,7 +6,8 @@ prácticas de desarrollo backend: diseño de APIs, validaciones, persistencia,
 testing automatizado, CI/CD y contenedorización.
 
 ---
-
+## 🎥 Video Demo
+[LINK AL VIDEO](https://drive.google.com/file/d/1Dg8IRAFYa-DsJiWm0EDbGAOwMg187bGd/view?usp=sharing)
 ##  Cómo correr la API
 
 ### Opción 1: Ejecutar localmente (Python)
